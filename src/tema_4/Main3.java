@@ -9,7 +9,8 @@ public class Main3 {
 		
 		clientes[0] = new Cliente("Francisco", "Franco", "666616666", "Calle Limón", null);
 		clientes[1] = new Cliente("San", "Jose", "736933223", "Calle limón", null);
-		clientes[2] = new Cliente("Maricarmen", "maricaJAJAJAJA", "234765348", "Orihuela", null);
+		clientes[2] = new Cliente("Maricarmen", "tengosueñoaaaaaaaaaaaaaaaaa", "999999999", "Orihuela", null);
+		clientes[3] = new Cliente(null, null, null, null, null);
 
 		Producto productos[] = new Producto[3];
 
@@ -30,6 +31,7 @@ public class Main3 {
 
 			switch (respuesta1) {
 				case 1: {
+					clientes[0].crearMostrarClientes(sc, clientes);
 				} break;
 
 				case 2: {

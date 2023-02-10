@@ -27,18 +27,20 @@ public class Cliente {
 			apellidos = ap.toUpperCase();
 		}
 
-		if ((tel.length() == 9)
-				&& (tel.startsWith("6") || tel.startsWith("7") || tel.startsWith("8") || tel.startsWith("9"))) {
-			if (tel.startsWith("6") || tel.startsWith("7")) {
-				tipoTel = "Movil";
-				telefono = tel;
+		if (tel != null) {
+			if ((tel.length() == 9)
+					&& (tel.startsWith("6") || tel.startsWith("7") || tel.startsWith("8") || tel.startsWith("9"))) {
+				if (tel.startsWith("6") || tel.startsWith("7")) {
+					tipoTel = "Movil";
+					telefono = tel;
+				} else {
+					tipoTel = "Fijo";
+					telefono = tel;
+				}
 			} else {
-				tipoTel = "Fijo";
-				telefono = tel;
+				tipoTel = "Invalido";
+				telefono = null;
 			}
-		} else {
-			tipoTel = "Invalido";
-			telefono = null;
 		}
 
 		direccion = dir;
@@ -51,6 +53,53 @@ public class Cliente {
 	}
 
 	// Methods
+
+	public void crearMostrarClientes(Scanner sc, Cliente clientes[]) {
+		System.out.println("\n\n ¿Quieres crear un nuevo cliente o ver los ya creados? \n\n 1. Crear nuevo \\n 2. Mostrar los ya creados \\n 3. Salir");
+
+		int respuesta = sc.nextInt();
+
+		switch (respuesta) {
+			case 1: {
+				// Crear un cliente, si ya existe modificarlo
+
+				if (clientes[3].telefono == null) {
+					clientes[3].crearCliente(clientes[3], sc);
+				} else {
+					System.out.println("Ya se ha creado un cliente, ¿quiere sobreescribirlo? \n 1. Si \n  2. No");
+					int respuesta2 = sc.nextInt();
+					switch (respuesta2) {
+						case 1: {
+							clientes[3].crearCliente(clientes[3], sc);
+						} break;
+						
+						case 2: {
+							// Vacío para que no de default
+						} break;
+						
+						default:
+							System.out.println("Valor inválido");
+						}
+				}
+			} break;
+
+			// Mostrar los clientes
+			case 2: {
+				clientes[0].mostrarClientes(clientes);
+
+			} break;
+
+			case 3: {
+				// Vacío para que no de default
+			}
+			break;
+
+		default: {
+			System.out.println("Valor inválido");
+		}
+		}
+	}
+
 
 	public void agregarPedido() {
 		if (pedidoCliente.pagado = true) {
@@ -67,6 +116,26 @@ public class Cliente {
 		System.out.println("Tipo teléfono: " + newCliente.tipoTel);
 		System.out.println("Dirección: " + newCliente.direccion);
 		System.out.println("Fecha de alta: " + newCliente.fechaDeAlta);
+	}
+
+	public void mostrarClientes(Cliente clientes[]) {
+
+		// La intención de este es que recorra el array entero escribiendo los datos de
+		// todos los clientes, y en caso de que uno de ellos no tenga el teléfono bien
+		// asignado no se mostrará
+
+		for (int i = 0; i < clientes.length; i++) {
+			if (clientes[i].telefono != null) {
+				System.out.println("\n\n\n Datos del cliente " + (i + 1) + ": \n");
+
+				System.out.println("Nombre: " + clientes[i].nombre);
+				System.out.println("Apellido: " + clientes[i].apellidos);
+				System.out.println("Teléfono: " + clientes[i].telefono);
+				System.out.println("Tipo teléfono: " + clientes[i].tipoTel);
+				System.out.println("Dirección: " + clientes[i].direccion);
+				System.out.println("Fecha de alta: " + clientes[i].fechaDeAlta);
+			}
+		}
 	}
 
 	public void mostrarClientesPedido(Cliente newCliente1, Cliente newCliente2, Cliente newCliente3,
@@ -114,6 +183,7 @@ public class Cliente {
 
 	}
 
+
 	public Cliente crearCliente(Cliente clienteNuevo, Scanner sc) {
 		sc.nextLine();
 		System.out.println("Nombre: ");
@@ -128,11 +198,13 @@ public class Cliente {
 		System.out.println("Dirección: ");
 		clienteNuevo.direccion = sc.nextLine();
 
-		while ((clienteNuevo.telefono.length() != 9) && (clienteNuevo.telefono.startsWith("6") || clienteNuevo.telefono.startsWith("7") || clienteNuevo.telefono.startsWith("8") || clienteNuevo.telefono.startsWith("9"))) {
-				System.out.println("\n Teléfono inválido, escriba otra vez: ");
-				System.out.println("Número de teléfono: ");
-				clienteNuevo.telefono = sc.nextLine();
-			}
+		while ((clienteNuevo.telefono.length() != 9)
+				&& (clienteNuevo.telefono.startsWith("6") || clienteNuevo.telefono.startsWith("7")
+						|| clienteNuevo.telefono.startsWith("8") || clienteNuevo.telefono.startsWith("9"))) {
+			System.out.println("\n Teléfono inválido, escriba otra vez: ");
+			System.out.println("Número de teléfono: ");
+			clienteNuevo.telefono = sc.nextLine();
+		}
 		
 		comprobarTelefono(clienteNuevo);
 		
