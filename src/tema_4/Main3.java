@@ -16,6 +16,7 @@ public class Main3 {
 
 		productos[0] = new Producto("Coca cola", 0.59);
 		productos[1] = new Producto("Hamburguesa", 7.50);
+		productos[2] = new Producto(null, 0);
 		
 		Scanner sc = new Scanner(System.in);
 
@@ -31,19 +32,19 @@ public class Main3 {
 
 			switch (respuesta1) {
 				case 1: {
-					clientes[0].crearMostrarClientes(sc, clientes);
+					clientes[3].crearMostrarClientes(sc, clientes);
 				} break;
 
 				case 2: {
-					
+					productos[2].crearMostrarProductos(sc, productos);
 				} break;
 
 				case 3: {
-					
+					// Vacío para no entrar en default
 				} break;
 
 				default: {
-					
+					System.err.println("Valor inválido");
 				} break;
 			}
 		}

@@ -64,7 +64,7 @@ public class Cliente {
 
 	// Methods
 
-	public void crearMostrarClientes(Scanner sc, Cliente clientes[]) {
+	public Cliente crearMostrarClientes(Scanner sc, Cliente clientes[]) {
 		System.out.println("\n\n ¿Quieres crear un nuevo cliente o ver los ya creados? \n\n 1. Crear nuevo \\n 2. Mostrar los ya creados \\n 3. Salir");
 
 		int respuesta = sc.nextInt();
@@ -88,7 +88,7 @@ public class Cliente {
 						} break;
 						
 						default:
-							System.out.println("Valor inválido");
+							System.err.println("Valor inválido");
 						}
 				}
 			} break;
@@ -105,9 +105,11 @@ public class Cliente {
 			break;
 
 		default: {
-			System.out.println("Valor inválido");
+			System.err.println("Valor inválido");
 		}
 		}
+
+		return clientes[3];
 	}
 
 
@@ -162,6 +164,8 @@ public class Cliente {
 
 	}
 
+	// Todo lo de elegirCliente se quedará obsoleto si el Main3 acaba siendo funcional
+	
 	// public Cliente elegirCliente(Scanner sc, Cliente cliente1, Cliente cliente2,
 	// Cliente cliente3, Cliente cliente4, Cliente clientePedido) {
 	public Cliente elegirCliente(Scanner sc, Cliente cliente1, Cliente cliente2, Cliente cliente3,
