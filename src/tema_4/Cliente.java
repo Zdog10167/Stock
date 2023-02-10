@@ -28,8 +28,7 @@ public class Cliente {
 		}
 
 		if (tel != null) {
-			if ((tel.length() == 9)
-					&& (tel.startsWith("6") || tel.startsWith("7") || tel.startsWith("8") || tel.startsWith("9"))) {
+			if ((tel.length() == 9) && (tel.startsWith("6") || tel.startsWith("7") || tel.startsWith("8") || tel.startsWith("9"))) {
 				if (tel.startsWith("6") || tel.startsWith("7")) {
 					tipoTel = "Movil";
 					telefono = tel;
@@ -40,6 +39,17 @@ public class Cliente {
 			} else {
 				tipoTel = "Invalido";
 				telefono = null;
+			}
+
+			if (tel.contains("a") || tel.contains("b") || tel.contains("c") || tel.contains("d") || tel.contains("e")
+					|| tel.contains("f") || tel.contains("g") || tel.contains("h") || tel.contains("i")
+					|| tel.contains("j") || tel.contains("k") || tel.contains("l") || tel.contains("m")
+					|| tel.contains("n") || tel.contains("o") || tel.contains("p") || tel.contains("q")
+					|| tel.contains("r") || tel.contains("s") || tel.contains("t") || tel.contains("u")
+					|| tel.contains("v") || tel.contains("w") || tel.contains("x") || tel.contains("y")
+					|| tel.contains("z") || tel.contains("ñ")) {
+				telefono = null;
+				tipoTel = "invalido";
 			}
 		}
 
@@ -198,16 +208,17 @@ public class Cliente {
 		System.out.println("Dirección: ");
 		clienteNuevo.direccion = sc.nextLine();
 
-		while ((clienteNuevo.telefono.length() != 9)
-				&& (clienteNuevo.telefono.startsWith("6") || clienteNuevo.telefono.startsWith("7")
-						|| clienteNuevo.telefono.startsWith("8") || clienteNuevo.telefono.startsWith("9"))) {
+		comprobarTelefono(clienteNuevo);
+
+		while (clienteNuevo.telefono == null) {
 			System.out.println("\n Teléfono inválido, escriba otra vez: ");
 			System.out.println("Número de teléfono: ");
 			clienteNuevo.telefono = sc.nextLine();
+			comprobarTelefono(clienteNuevo);
 		}
 		
-		comprobarTelefono(clienteNuevo);
 		
+
 		return clienteNuevo;
 	}
 
@@ -225,6 +236,24 @@ public class Cliente {
 		} else {
 			tipoTel = "Invalido";
 			telefono = null;
+		}
+
+		if (clienteNuevo.telefono.contains("a") || clienteNuevo.telefono.contains("b")
+				|| clienteNuevo.telefono.contains("c") || clienteNuevo.telefono.contains("d")
+				|| clienteNuevo.telefono.contains("e") || clienteNuevo.telefono.contains("f")
+				|| clienteNuevo.telefono.contains("g") || clienteNuevo.telefono.contains("h")
+				|| clienteNuevo.telefono.contains("i") || clienteNuevo.telefono.contains("j")
+				|| clienteNuevo.telefono.contains("k") || clienteNuevo.telefono.contains("l")
+				|| clienteNuevo.telefono.contains("m") || clienteNuevo.telefono.contains("n")
+				|| clienteNuevo.telefono.contains("o") || clienteNuevo.telefono.contains("p")
+				|| clienteNuevo.telefono.contains("q") || clienteNuevo.telefono.contains("r")
+				|| clienteNuevo.telefono.contains("s") || clienteNuevo.telefono.contains("t")
+				|| clienteNuevo.telefono.contains("u") || clienteNuevo.telefono.contains("v")
+				|| clienteNuevo.telefono.contains("w") || clienteNuevo.telefono.contains("x")
+				|| clienteNuevo.telefono.contains("y") || clienteNuevo.telefono.contains("z") 
+				|| clienteNuevo.telefono.contains("ñ")) {
+			telefono = null;
+			tipoTel = "invalido";
 		}
 	}
 
