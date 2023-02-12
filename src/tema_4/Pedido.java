@@ -26,7 +26,7 @@ public class Pedido {
 
 	// Methods
 
-	public void realizarPedido(Cliente cliente, Producto productos[], PasarelaDePago pago, Pedido pedido, Scanner sc) {
+	public Cliente realizarPedido(Cliente cliente, Producto productos[], PasarelaDePago pago, Pedido pedido, Scanner sc) {
 		boolean cantidadStock = productos[0].comprobarStock(productos);
 		if (cantidadStock == true) {
 			double precioTotal = pago.calcularCosteTotal(pedido);
@@ -35,7 +35,8 @@ public class Pedido {
 		} else {
 			System.out.println("No hay suficiente stock");
 		}
-
+		cliente.agregarHistorial(cliente, pago.generarCodigoPago());
+		return cliente;
 	}
 
 

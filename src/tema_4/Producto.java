@@ -223,8 +223,16 @@ public class Producto {
 	}
 
 	public boolean comprobarStock(Producto producto[]) {
-		if (producto[0].stock[0] == 0 || producto[1].stock[0] == 0) {
-			return false;
+		if (producto[0].stock[0] == 0) {
+			if (producto[1] != null) {
+				if (producto[1].stock[0] == 0) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				return false;
+			}
 		} else {
 			return true;
 		}

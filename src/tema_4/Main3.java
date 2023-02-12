@@ -57,6 +57,8 @@ public class Main3 {
 
 		pedido.realizarPedido(pedido.cliente, pedido.productos, pago, pedido, sc);
 
+		System.out.println("Historial cliente " + pedido.cliente.nombre + ": " + pedido.cliente.historial);
+
 		sc.close();
 	}
 

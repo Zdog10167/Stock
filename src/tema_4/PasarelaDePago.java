@@ -44,7 +44,7 @@ public class PasarelaDePago {
 	public void elegirMetodoPago(Pedido pedido, Scanner sc) {
 		System.out.println("Elige tu método de pago: \n 1. Efectivo \n 2. Tarjeta");
 		int respuesta = 0;
-		while (respuesta != 1 || respuesta != 2) {
+		while (respuesta != 1 && respuesta != 2) {
 			respuesta = sc.nextInt();
 			switch (respuesta) {
 				case 1: {
@@ -76,11 +76,6 @@ public class PasarelaDePago {
 		
 		System.out.println("Cantidad válida, cambio: " + calcularCambio(importe, precioTotal));
 		pedido.pagado = true;
-
-		/*
-		 * if (Pedido.pagado = true) { codigoPago = Long.toString(new Date().getTime());
-		 * importe = 0; }
-		 */
 	}
 
 	public void tarjeta() {
@@ -94,6 +89,11 @@ public class PasarelaDePago {
 		cambio = importeCortado.doubleValue();
 
 		return cambio;
+	}
+
+	public String generarCodigoPago() {
+		codigoPago = Long.toString(new Date().getTime());
+		return codigoPago;
 	}
 
 }

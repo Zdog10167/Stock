@@ -19,6 +19,7 @@ public class Cliente {
 	PasarelaDePago codigoProd;
 
 	public Cliente(String nom, String ap, String tel, String dir, Date fechaAlta) {
+		historial = "";
 		if (nom != null) {
 			nombre = nom.toLowerCase();
 		}
@@ -64,8 +65,8 @@ public class Cliente {
 
 	// Methods
 
-	public Cliente agregarHistorial(Cliente cliente, PasarelaDePago codigo) {
-		cliente.historial = cliente.historial.concat(codigo.codigoPago);
+	public Cliente agregarHistorial(Cliente cliente, String codigo) {
+		cliente.historial = cliente.historial.concat(codigo);
 		return cliente;
 	}
 
@@ -119,9 +120,8 @@ public class Cliente {
 
 
 	public void agregarPedido() {
-		if (pedidoCliente.pagado = true) {
-			historial = historial.concat(codigoProd.codigoPago);
-		}
+		historial = historial.concat(codigoProd.codigoPago);
+
 	}
 
 	public void mostrarCliente(Cliente newCliente) {
