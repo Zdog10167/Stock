@@ -25,7 +25,7 @@ public class Producto {
 		}
 	}
 
-	// Methods
+	// Methods (pendiente de eliminar los obsoletos)
 
 	public Producto crearMostrarStockProductos(Scanner sc, Producto productos[]) {
 		System.out.println("\n\n ¿Quieres crear un nuevo producto o ver los ya creados?");
@@ -80,7 +80,7 @@ public class Producto {
 			} break;
 		
 			case 2: {
-				// Vacío para que no de default
+				newProducto.stock[0] = 0;
 			} break;
 			
 			default:
@@ -91,9 +91,18 @@ public class Producto {
 	}
 	
 	public void mostrarProductos(Producto productos[]) {
+		int cantidadStock[] = new int[productos.length];
+		for (int a = 0; a < productos.length; a++) {
+			for (int b = 0; b < productos[a].stock.length; b++) {
+				if (productos[a].stock[b] == 1) {
+					cantidadStock[a]++;
+				}
+			}
+		}
+
 		for (int i = 0; i < productos.length; i++) {
 			if (productos[i].nombre != null) {
-				System.out.println("\n Datos producto " + (i + 1) + ": " + "\nNombre: " + productos[i].nombre + "\nPrecio: " + productos[i].precio + "\nStock: " + productos[i].stock);
+				System.out.println("\n Datos producto " + (i + 1) + ": " + "\nNombre: " + productos[i].nombre + "\nPrecio: " + productos[i].precio + "\nStock: " + cantidadStock[i]);
 			}
 		}
 	}
@@ -170,6 +179,55 @@ public class Producto {
 		}
 
 		return cantStock;
+	}
+
+	public Producto[] elegirProducto(Producto productos[], Scanner sc) {
+		Producto productosPedido[] = new Producto[2];
+
+		System.out.println("\n¿Que producto quieres agregar al pedido? \n 1. " + productos[0].nombre + "\n 2. " + productos[1].nombre);
+		if (productos[2].nombre != null) {
+			System.out.println(" 3. " + productos[2].nombre);
+		}
+		int producto1 = sc.nextInt();
+		while (producto1 != 1 && producto1 != 2 && (producto1 != 3 || productos[2] == null)) {
+			System.out.println("Valor inválido, escribalo de nuevo");
+			producto1 = sc.nextInt();
+		}
+		productosPedido[0] = productos[producto1 - 1];
+
+		System.out.println("¿Quiere añadir un segundo producto? \n 1. Si \n 2. No");
+
+		int respuesta = sc.nextInt();
+		
+		switch (respuesta) {
+			case 1: {
+				System.out.println("\n¿Que producto quieres agregar al pedido? \n 1. " + productos[0].nombre + "\n 2. " + productos[1].nombre);
+				if (productos[2].nombre != null) {
+					System.out.println(" 3. " + productos[2].nombre);
+				}
+				int producto2 = sc.nextInt();
+				while (producto2 != 1 && producto2 != 2 && (producto2 != 3 || productos[2] == null)) {
+					System.out.println("Valor inválido, escribalo de nuevo");
+					producto2 = sc.nextInt();
+				}
+				productosPedido[1] = productos[producto2 - 1];
+			} break;
+			case 2: {
+				// Vacío para no default
+			} break;
+			default:
+				System.err.println("Valor inválido, no se agregará un segundo producto");
+			}
+
+		return productosPedido;
+	}
+
+	public boolean comprobarStock(Producto producto[]) {
+		if (producto[0].stock[0] == 0 || producto[1].stock[0] == 0) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 	// Constructores

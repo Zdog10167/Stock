@@ -51,7 +51,11 @@ public class Main3 {
 
 		// Inicio realización del pedido
 
-		productos[0].mostrarStock(productos);
+		Pedido pedido = new Pedido(clientes[0].elegirCliente(clientes, sc), productos[0].elegirProducto(productos, sc));
+
+		PasarelaDePago pago = new PasarelaDePago(pedido);
+
+		pedido.realizarPedido(pedido.cliente, pedido.productos, pago, pedido, sc);
 
 		sc.close();
 	}

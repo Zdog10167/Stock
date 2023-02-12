@@ -1,11 +1,13 @@
 package tema_4;
 
+import java.util.Scanner;
+
 public class Pedido {
 
 	Cliente cliente;
 
-	Producto producto1;
-	Producto producto2;
+	Producto productos[];
+
 	double importeTotal;
 
 	PasarelaDePago pago;
@@ -15,39 +17,25 @@ public class Pedido {
 	boolean listo;
 	boolean entregado;
 	
-	public Pedido(Cliente cliente, boolean Pagado, boolean Preparando, boolean Listo, boolean Entregado) {
+	public Pedido(Cliente cliente, Producto productos[]) {
 		
 		this.cliente = cliente;
-
-		pagado = Pagado;
-		preparando = Preparando;
-		listo = Listo;
-		entregado = Entregado;
-
-		if (pagado = false) {
-			preparando = false;
-			listo = false;
-			entregado = false;
-		}
-		if (preparando = false) {
-			listo = false;
-			entregado = false;
-		}
-		if (listo = false) {
-			entregado = false;
-		}
+		this.productos = productos;
 
 	}
 
-	// Setters y Getters
-	
-	public double getImporteTotal() {
-		return importeTotal;
-	}
-	public void setImporteTotal(double ImporteCalc) {
-		ImporteCalc = producto1.precio + producto2.precio;
+	// Methods
 
-		this.importeTotal = ImporteCalc;
+	public void realizarPedido(Cliente cliente, Producto productos[], PasarelaDePago pago, Pedido pedido, Scanner sc) {
+		boolean cantidadStock = productos[0].comprobarStock(productos);
+		if (cantidadStock == true) {
+			double precioTotal = pago.calcularCosteTotal(pedido);
+			System.out.println("Precio total: " + precioTotal);
+			pago.elegirMetodoPago(pedido, sc);
+		} else {
+			System.out.println("No hay suficiente stock");
+		}
+
 	}
 
 

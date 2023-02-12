@@ -11,7 +11,7 @@ public class Cliente {
 	String telefono;
 	String tipoTel;
 	String direccion;
-	String historial;
+	String historial = "";
 	Date fechaDeAlta;
 
 	Pedido pedidoCliente;
@@ -64,8 +64,13 @@ public class Cliente {
 
 	// Methods
 
+	public Cliente agregarHistorial(Cliente cliente, PasarelaDePago codigo) {
+		cliente.historial = cliente.historial.concat(codigo.codigoPago);
+		return cliente;
+	}
+
 	public Cliente crearMostrarClientes(Scanner sc, Cliente clientes[]) {
-		System.out.println("\n\n ¿Quieres crear un nuevo cliente o ver los ya creados? \n\n 1. Crear nuevo \\n 2. Mostrar los ya creados \\n 3. Salir");
+		System.out.println("\n\n ¿Quieres crear un nuevo cliente o ver los ya creados? \n\n 1. Crear nuevo \n 2. Mostrar los ya creados \n 3. Salir");
 
 		int respuesta = sc.nextInt();
 
@@ -259,6 +264,24 @@ public class Cliente {
 			telefono = null;
 			tipoTel = "invalido";
 		}
+	}
+
+	public Cliente elegirCliente(Cliente clientes[], Scanner sc) {
+
+		System.out.println("\n ¿Con que cliente quieres realizar el pedido?\n");
+		System.out.println(" 1. " + clientes[0].nombre + "\n 2. " + clientes[1].nombre + "\n 3. " + clientes[2].nombre);
+		if (clientes[3].telefono != null) {
+			System.out.println(" 4. " + clientes[3].nombre);
+		}
+
+		int clienteElegido = sc.nextInt();
+
+		while (clienteElegido != 1 && clienteElegido != 2 && clienteElegido != 3
+				&& (clienteElegido != 4 || clientes[3].telefono == null)) {
+			System.err.println("Valor inválido, vuelva a escribirlo");
+			clienteElegido = sc.nextInt();
+		}
+		return (clientes[clienteElegido - 1]);
 	}
 
 	// Setters y Getters
