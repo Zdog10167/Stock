@@ -8,8 +8,10 @@ public class Producto {
 
 	String nombre;
 	double precio;
+	int[] stock = new int[30];
 
-	public Producto(String Nombre, double Precio) {
+
+	public Producto(String Nombre, double Precio, int Stock) {
 
 		if (Nombre != null) {
 			nombre = Nombre.toUpperCase();
@@ -17,11 +19,17 @@ public class Producto {
 
 		BigDecimal precioCortado = new BigDecimal(Precio).setScale(2, RoundingMode.DOWN);
 		precio = precioCortado.doubleValue();
+
+		for (int i = 0; i < Stock; i++) {
+			stock[i] = 1;
+		}
 	}
 
-	public Producto crearMostrarProductos(Scanner sc, Producto productos[]) {
+	// Methods
+
+	public Producto crearMostrarStockProductos(Scanner sc, Producto productos[]) {
 		System.out.println("\n\n ¿Quieres crear un nuevo producto o ver los ya creados?");
-		System.out.println("\n 1. Crear nuevo \n 2. Mostrar los ya creados \n 3. Salir");
+		System.out.println("\n 1. Crear nuevo \n 2. Mostrar los ya creados \n 3. Mostrar stock o añadir \n 4. Salir");
 
 		int respuesta = sc.nextInt();
 
@@ -36,17 +44,21 @@ public class Producto {
 			} break;
 
 			case 3: {
+				productos[1].mostrarLlenarStock(productos, sc);
+			}
+			
+			case 4: {
 				//Vacío para que no de default
 			} break;
 
-		default: {
-			System.out.println("Valor inválido");
-		}
+			default: {
+				System.out.println("Valor inválido");
+			}
 		}
 		return productos[2];
 	}
 
-	public void crearProducto(Scanner sc, Producto newProducto) {
+	public Producto crearProducto(Scanner sc, Producto newProducto) {
 		sc.nextLine();
 
 		System.out.println("Nombre: ");
@@ -57,12 +69,31 @@ public class Producto {
 		newProducto.precio = sc.nextDouble();
 
 		cortarDecimales(precio);
+
+		System.out.println("¿Quieres añadir stock? \n 1. Si \n 2. No");
+		
+		int respuesta = sc.nextInt();
+		
+		switch (respuesta) {
+			case 1: {
+				newProducto.llenarStock(sc, newProducto);
+			} break;
+		
+			case 2: {
+				// Vacío para que no de default
+			} break;
+			
+			default:
+				System.err.println("Valor inválido");
+		}
+
+		return newProducto;
 	}
 	
 	public void mostrarProductos(Producto productos[]) {
 		for (int i = 0; i < productos.length; i++) {
 			if (productos[i].nombre != null) {
-				System.out.println("\n Datos producto " + (i + 1) + ": " + "\nNombre: " + productos[i].nombre + "\nPrecio: " + productos[i].precio);
+				System.out.println("\n Datos producto " + (i + 1) + ": " + "\nNombre: " + productos[i].nombre + "\nPrecio: " + productos[i].precio + "\nStock: " + productos[i].stock);
 			}
 		}
 	}
@@ -77,6 +108,68 @@ public class Producto {
 
 		System.out.println("Nombre: " + newProducto.nombre);
 		System.out.println("Precio: " + newProducto.precio);
+	}
+
+	public int[] mostrarLlenarStock(Producto productos[], Scanner sc) {
+		System.out.println("¿Quiere agregar stock o mostrar el existente? \n 1. Mostrar Stock \n 2. Agregar Stock \n 3. Salir");
+		int respuesta = sc.nextInt();
+		switch (respuesta) {
+			case 1: {
+				mostrarStock(productos);
+			} break;
+		
+			case 2: {
+				System.out.println("¿De que producto quieres llenar el stock? \n 1. " + productos[0].nombre + "\n 2. " + productos[1].nombre);
+				if (productos[2].nombre != null) {
+					System.out.println("3. " + productos[2].nombre);
+				}
+				int productoElegido = sc.nextInt();
+				if (productoElegido == 1 || productoElegido == 2 || (productoElegido == 3 && productos[productoElegido].nombre != null)) {
+					llenarStock(sc, productos[productoElegido]);
+					return productos[productoElegido].stock;
+				} else {
+					System.err.println("Valor inválido");
+				}
+			} break;
+		
+			case 3: {
+				// Valor vacío para que no de default
+			} break;
+		
+			default:
+				System.err.println("Valor inválido");
+			}
+		return productos[1].stock;
+	}
+
+	public void mostrarStock(Producto productos[]) {
+		int cantidadStock[] = new int[productos.length];
+		for (int a = 0; a < productos.length; a++) {
+			for (int b = 0; b < productos[a].stock.length; b++) {
+				if (productos[a].stock[b] == 1) {
+					cantidadStock[a]++;
+				}
+			}
+		}
+
+		for (int i = 0; i < productos.length; i++) {
+			if (productos[i].nombre != null) {
+				System.out.println("Stock de " + productos[i].nombre + ": " + cantidadStock[i]);
+			}
+		}
+	}
+
+	public int llenarStock(Scanner sc, Producto producto) {
+		System.out.println("¿Cuánto stock quieres añadir? Máximo 30");
+		int cantStock = sc.nextInt();
+		if (cantStock >= 30) {
+			cantStock = 30;
+		}
+		for (int i = 0; i < cantStock; i++) {
+			producto.stock[i] = 1;
+		}
+
+		return cantStock;
 	}
 
 	// Constructores

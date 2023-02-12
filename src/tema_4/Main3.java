@@ -14,9 +14,9 @@ public class Main3 {
 
 		Producto productos[] = new Producto[3];
 
-		productos[0] = new Producto("Coca cola", 0.59);
-		productos[1] = new Producto("Hamburguesa", 7.50);
-		productos[2] = new Producto(null, 0);
+		productos[0] = new Producto("Coca cola", 0.59, 12);
+		productos[1] = new Producto("Hamburguesa", 7.50, 5);
+		productos[2] = new Producto(null, 0, 0);
 		
 		Scanner sc = new Scanner(System.in);
 
@@ -36,7 +36,7 @@ public class Main3 {
 				} break;
 
 				case 2: {
-					productos[2].crearMostrarProductos(sc, productos);
+					productos[2].crearMostrarStockProductos(sc, productos);
 				} break;
 
 				case 3: {
@@ -48,6 +48,11 @@ public class Main3 {
 				} break;
 			}
 		}
+
+		// Inicio realización del pedido
+
+		productos[0].mostrarStock(productos);
+
 		sc.close();
 	}
 
